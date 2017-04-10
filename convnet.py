@@ -1,3 +1,4 @@
+# simple version, No Data Augmentation, No Dropout, No Regularization
 import numpy
 import keras
 import matplotlib.pyplot as plt

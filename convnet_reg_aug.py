@@ -1,4 +1,4 @@
-# simple version, No Data Augmentation, No Dropout, No Regularization
+# Convnet with Data augmentation, Regularization
 import numpy
 import keras
 from keras.preprocessing.image import ImageDataGenerator

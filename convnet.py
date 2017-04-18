@@ -47,7 +47,7 @@ num_classes = y_test.shape[1]
 
 model = Sequential()
 model.add(Conv2D(32, (3, 3), input_shape=(3, 32, 32), padding='same', activation='relu'))
-
+model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Conv2D(32, (3, 3), activation='relu', padding='same'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Flatten())
@@ -55,17 +55,17 @@ model.add(Dense(512, activation='relu'))
 
 model.add(Dense(num_classes, activation='softmax'))
 # Compile model
-epochs = 3
-lrate = 0.01
-decay = lrate/epochs
-sgd = SGD(lr=lrate, momentum=0.9, decay=decay, nesterov=False)
-model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
+epochs = 25
+# lrate = 0.01
+# decay = lrate/epochs
+# sgd = SGD(lr=lrate, momentum=0.9, decay=decay, nesterov=False)
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 print(model.summary())
 
 t_accuracy_history = AccHistory_train()
 v_accuracy_history = AccHistory_valid()
 
-model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=epochs, batch_size=128,
+model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=epochs, batch_size=100,
           callbacks=[t_accuracy_history, v_accuracy_history])
 # Final evaluation of the model
 scores = model.evaluate(X_test, y_test, verbose=0)
@@ -82,6 +82,6 @@ line_1.set_label('training set')
 line_2.set_label('validation set')
 ax.legend()
 ax.set_ylabel('Accuracy')
-ax.set_title('')
+ax.set_title('convnet')
 ax.set_xlabel('epoch')
 plt.show()

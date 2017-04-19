@@ -68,7 +68,8 @@ model.add(Dense(512, activation='relu', kernel_constraint=maxnorm(3)))
 model.add(Dropout(0.2))
 model.add(Dense(num_classes, activation='softmax'))
 # Compile model
-epochs = 50
+epochs = 25
+
 # lrate = 0.01
 # decay = lrate/epochs
 # sgd = SGD(lr=lrate, momentum=0.9, decay=decay, nesterov=False)
@@ -81,10 +82,12 @@ v_accuracy_history = AccHistory_valid()
 
 # using keras ImageDataGenerator class for data augmentation
 datagen = ImageDataGenerator(
-    shear_range=0.2,
-    rotation_range=0.2,
-    horizontal_flip=True,
-    vertical_flip=True)
+        rotation_range=40,
+        width_shift_range=0.2,
+        shear_range=0.2,
+        horizontal_flip=True,
+        fill_mode='nearest')
+
 
 # compute quantities required for featurewise normalization
 datagen.fit(X_train)
